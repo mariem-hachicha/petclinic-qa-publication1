@@ -1,0 +1,77 @@
+[
+  {
+    "id": "TC-OWN-01-01",
+    "requirement_id": "REQ-OWN-01",
+    "title": "Création d'un propriétaire avec des données valides par la réception",
+    "technique": "nominal",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Jean\",\"lastName\":\"Dupont\",\"address\":\"10 rue de la Paix\",\"city\":\"Paris\",\"telephone\":\"0123456789\"}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-OWN-01-02",
+    "requirement_id": "REQ-OWN-01",
+    "title": "Création d'un propriétaire avec des données valides par un administrateur",
+    "technique": "nominal",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Alice\",\"lastName\":\"Martin\",\"address\":\"5 avenue des Fleurs\",\"city\":\"Lyon\",\"telephone\":\"0478901234\"}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-OWN-01-03",
+    "requirement_id": "REQ-OWN-01",
+    "title": "Création d'un propriétaire avec un jeu de données de test alternatif",
+    "technique": "classe_equivalence",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Marc\",\"lastName\":\"Bernard\",\"address\":\"12 boulevard Haussmann\",\"city\":\"Marseille\",\"telephone\":\"0491000000\"}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

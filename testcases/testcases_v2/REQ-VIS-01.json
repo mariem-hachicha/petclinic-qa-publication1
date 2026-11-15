@@ -1,0 +1,108 @@
+{
+  "requirement_id": "REQ-VIS-01",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T14:07:47+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-VIS-01-01",
+      "requirement_id": "REQ-VIS-01",
+      "title": "Ajout nominal d'une visite valide pour un animal",
+      "technique": "nominal",
+      "user": "vet",
+      "preconditions": [
+        "Authentifié en tant que 'vet' (ROLE_VET)",
+        "L'animal 1 du propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets/1/visits",
+        "query": {},
+        "body_json": "{\"date\":\"2023-10-15\",\"description\":\"Contrôle annuel\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.description",
+            "operator": "equals",
+            "value": "Contrôle annuel"
+          },
+          {
+            "path": "$.date",
+            "operator": "equals",
+            "value": "2023-10-15"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-VIS-01-02",
+      "requirement_id": "REQ-VIS-01",
+      "title": "Ajout d'une visite avec description détaillée et date future",
+      "technique": "classe_equivalence",
+      "user": "vet",
+      "preconditions": [
+        "Authentifié en tant que 'vet' (ROLE_VET)",
+        "L'animal 1 du propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets/1/visits",
+        "query": {},
+        "body_json": "{\"date\":\"2025-05-20\",\"description\":\"Vaccination antirabique et bilan de santé complet\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.description",
+            "operator": "equals",
+            "value": "Vaccination antirabique et bilan de santé complet"
+          },
+          {
+            "path": "$.date",
+            "operator": "equals",
+            "value": "2025-05-20"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-VIS-01-03",
+      "requirement_id": "REQ-VIS-01",
+      "title": "Ajout d'une visite avec une description courte valide",
+      "technique": "valeur_limite",
+      "user": "vet",
+      "preconditions": [
+        "Authentifié en tant que 'vet' (ROLE_VET)",
+        "L'animal 1 du propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets/1/visits",
+        "query": {},
+        "body_json": "{\"date\":\"2024-01-10\",\"description\":\"Soin\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.description",
+            "operator": "equals",
+            "value": "Soin"
+          },
+          {
+            "path": "$.date",
+            "operator": "equals",
+            "value": "2024-01-10"
+          }
+        ]
+      }
+    }
+  ]
+}

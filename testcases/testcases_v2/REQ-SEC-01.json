@@ -1,0 +1,54 @@
+{
+  "requirement_id": "REQ-SEC-01",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T14:06:14+00:00",
+  "generated": 2,
+  "valid": 2,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-SEC-01-01",
+      "requirement_id": "REQ-SEC-01",
+      "title": "Accès anonyme à la liste des propriétaires sans en-tête Authorization",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "Aucun jeton envoyé"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-SEC-01-02",
+      "requirement_id": "REQ-SEC-01",
+      "title": "Accès anonyme à la liste des propriétaires avec filtre de recherche sans en-tête Authorization",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "Aucun jeton envoyé"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {
+          "lastName": "Davis"
+        },
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    }
+  ]
+}

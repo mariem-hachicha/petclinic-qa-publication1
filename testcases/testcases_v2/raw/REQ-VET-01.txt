@@ -1,0 +1,54 @@
+[
+  {
+    "id": "TC-VET-01-01",
+    "requirement_id": "REQ-VET-01",
+    "title": "Consultation de la liste des vétérinaires par la réception",
+    "technique": "nominal",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)",
+      "Des vétérinaires existent dans la base de données avec des spécialités"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/vets",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "$[0].specialties",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-VET-01-02",
+    "requirement_id": "REQ-VET-01",
+    "title": "Consultation de la liste des vétérinaires par un administrateur",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)",
+      "Des vétérinaires existent dans la base de données"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/vets",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "$[0].specialties",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

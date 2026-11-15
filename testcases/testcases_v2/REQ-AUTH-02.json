@@ -1,0 +1,75 @@
+{
+  "requirement_id": "REQ-AUTH-02",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T14:05:56+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-AUTH-02-01",
+      "requirement_id": "REQ-AUTH-02",
+      "title": "Echec de connexion pour l'utilisateur admin avec un mot de passe errone",
+      "technique": "erreur",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'admin' existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"admin\",\"password\":\"mauvaismdp\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-02-02",
+      "requirement_id": "REQ-AUTH-02",
+      "title": "Echec de connexion pour le proprietaire george avec un mot de passe errone",
+      "technique": "erreur",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'george' existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"george\",\"password\":\"invalid_pass\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-02-03",
+      "requirement_id": "REQ-AUTH-02",
+      "title": "Echec de connexion pour le veterinaire vet avec casse incorrecte dans le mot de passe",
+      "technique": "erreur",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'vet' existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"vet\",\"password\":\"VET\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    }
+  ]
+}

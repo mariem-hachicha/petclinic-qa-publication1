@@ -1,0 +1,92 @@
+[
+  {
+    "id": "TC-SPE-01-01",
+    "requirement_id": "REQ-SPE-01",
+    "title": "Création d'une spécialité avec un nom simple par un administrateur",
+    "technique": "nominal",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/specialties",
+      "query": {},
+      "body_json": "{\"name\": \"radiology\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "name",
+          "operator": "equals",
+          "value": "radiology"
+        },
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-SPE-01-02",
+    "requirement_id": "REQ-SPE-01",
+    "title": "Création d'une deuxième spécialité avec une autre valeur valide",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/specialties",
+      "query": {},
+      "body_json": "{\"name\": \"dentistry\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "name",
+          "operator": "equals",
+          "value": "dentistry"
+        },
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-SPE-01-03",
+    "requirement_id": "REQ-SPE-01",
+    "title": "Création d'une spécialité comportant un nom composé",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/specialties",
+      "query": {},
+      "body_json": "{\"name\": \"chirurgie orthopedique\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "name",
+          "operator": "equals",
+          "value": "chirurgie orthopedique"
+        },
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,116 @@
+[
+  {
+    "id": "TC-PAG-01-01",
+    "requirement_id": "REQ-PAG-01",
+    "title": "Pagination par défaut des propriétaires en tant que vétérinaire",
+    "technique": "nominal",
+    "user": "vet",
+    "preconditions": [
+      "Authentifié en tant que 'vet' (ROLE_VET)"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/v2/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "page",
+          "operator": "exists"
+        },
+        {
+          "path": "size",
+          "operator": "equals",
+          "value": 20
+        },
+        {
+          "path": "totalElements",
+          "operator": "exists"
+        },
+        {
+          "path": "totalPages",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-PAG-01-02",
+    "requirement_id": "REQ-PAG-01",
+    "title": "Pagination par défaut des propriétaires en tant qu'administrateur",
+    "technique": "nominal",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/v2/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "page",
+          "operator": "exists"
+        },
+        {
+          "path": "size",
+          "operator": "equals",
+          "value": 20
+        },
+        {
+          "path": "totalElements",
+          "operator": "exists"
+        },
+        {
+          "path": "totalPages",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-PAG-01-03",
+    "requirement_id": "REQ-PAG-01",
+    "title": "Pagination par défaut des propriétaires en tant que réceptionniste",
+    "technique": "nominal",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/v2/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "page",
+          "operator": "exists"
+        },
+        {
+          "path": "size",
+          "operator": "equals",
+          "value": 20
+        },
+        {
+          "path": "totalElements",
+          "operator": "exists"
+        },
+        {
+          "path": "totalPages",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

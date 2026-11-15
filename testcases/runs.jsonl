@@ -1,0 +1,1 @@
+{"date": "2026-11-15T14:08:57+00:00", "model": "gemini-3.5-flash", "prompt": "pipeline/prompts/testcases_v2.md", "requirements": ["REQ-AUTH-02", "REQ-SEC-01", "REQ-OWN-01", "REQ-PAG-01", "REQ-PET-01", "REQ-VIS-01", "REQ-VET-01", "REQ-SPE-01", "REQ-TYP-01", "REQ-USR-01"], "generated": 26, "valid": 26, "failed_calls": []}

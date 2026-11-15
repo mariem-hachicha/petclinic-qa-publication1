@@ -1,0 +1,105 @@
+{
+  "requirement_id": "REQ-PET-01",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T14:07:24+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-PET-01-01",
+      "requirement_id": "REQ-PET-01",
+      "title": "Ajout nominal d'un animal valide pour un propriétaire existant",
+      "technique": "nominal",
+      "user": "reception",
+      "preconditions": [
+        "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)",
+        "Le propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets",
+        "query": {},
+        "body_json": "{\"name\":\"Leo\",\"birthDate\":\"2020-01-15\",\"type\":{\"id\":1,\"name\":\"cat\"}}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.id",
+            "operator": "exists"
+          },
+          {
+            "path": "$.name",
+            "operator": "equals",
+            "value": "Leo"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-PET-01-02",
+      "requirement_id": "REQ-PET-01",
+      "title": "Ajout d'un animal valide par un administrateur",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)",
+        "Le propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets",
+        "query": {},
+        "body_json": "{\"name\":\"Basil\",\"birthDate\":\"2018-08-06\",\"type\":{\"id\":2,\"name\":\"dog\"}}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.id",
+            "operator": "exists"
+          },
+          {
+            "path": "$.name",
+            "operator": "equals",
+            "value": "Basil"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-PET-01-03",
+      "requirement_id": "REQ-PET-01",
+      "title": "Ajout d'un second animal valide avec un autre type d'animal",
+      "technique": "classe_equivalence",
+      "user": "reception",
+      "preconditions": [
+        "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)",
+        "Le propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets",
+        "query": {},
+        "body_json": "{\"name\":\"Rosy\",\"birthDate\":\"2011-04-17\",\"type\":{\"id\":3,\"name\":\"lizard\"}}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.id",
+            "operator": "exists"
+          },
+          {
+            "path": "$.name",
+            "operator": "equals",
+            "value": "Rosy"
+          }
+        ]
+      }
+    }
+  ]
+}
