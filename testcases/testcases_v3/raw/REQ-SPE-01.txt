@@ -1,0 +1,62 @@
+[
+  {
+    "id": "TC-SPE-01-01",
+    "requirement_id": "REQ-SPE-01",
+    "title": "Création d'une spécialité valide par l'administrateur",
+    "technique": "nominal",
+    "user": "admin",
+    "preconditions": [
+      "L'utilisateur est authentifié avec le rôle ROLE_ADMIN"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/specialties",
+      "query": {},
+      "body_json": "{\"name\":\"radiology\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "name",
+          "operator": "equals",
+          "value": "radiology"
+        },
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-SPE-01-02",
+    "requirement_id": "REQ-SPE-01",
+    "title": "Création d'une seconde spécialité avec un nom différent",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "L'utilisateur est authentifié avec le rôle ROLE_ADMIN"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/specialties",
+      "query": {},
+      "body_json": "{\"name\":\"dermatology\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "name",
+          "operator": "equals",
+          "value": "dermatology"
+        },
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

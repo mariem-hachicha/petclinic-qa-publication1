@@ -1,0 +1,42 @@
+[
+  {
+    "id": "TC-TYP-01-01",
+    "requirement_id": "REQ-TYP-01",
+    "title": "Obtenir la liste des types d'animaux avec un compte vétérinaire",
+    "technique": "nominal",
+    "user": "vet",
+    "preconditions": [
+      "Authentifié en tant que 'vet' (ROLE_VET)"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/pettypes",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-TYP-01-02",
+    "requirement_id": "REQ-TYP-01",
+    "title": "Obtenir la liste des types d'animaux avec un compte administrateur",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/pettypes",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": []
+    }
+  }
+]

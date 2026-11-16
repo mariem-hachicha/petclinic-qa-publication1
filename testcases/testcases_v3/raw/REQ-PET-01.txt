@@ -1,0 +1,95 @@
+[
+  {
+    "id": "TC-PET-01-01",
+    "requirement_id": "REQ-PET-01",
+    "title": "Ajout nominal d'un animal valide par la réception",
+    "technique": "nominal",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur 'reception' est authentifié",
+      "Le propriétaire avec l'ID 1 existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners/1/pets",
+      "query": {},
+      "body_json": "{\"name\": \"Leo\", \"birthDate\": \"2020-01-15\", \"type\": {\"id\": 1, \"name\": \"dog\"}}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "name",
+          "operator": "equals",
+          "value": "Leo"
+        },
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-PET-01-02",
+    "requirement_id": "REQ-PET-01",
+    "title": "Ajout d'un animal valide par un utilisateur administrateur",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "L'utilisateur 'admin' est authentifié",
+      "Le propriétaire avec l'ID 1 existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners/1/pets",
+      "query": {},
+      "body_json": "{\"name\": \"Max\", \"birthDate\": \"2021-05-10\", \"type\": {\"id\": 2, \"name\": \"cat\"}}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "name",
+          "operator": "equals",
+          "value": "Max"
+        },
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-PET-01-03",
+    "requirement_id": "REQ-PET-01",
+    "title": "Ajout d'un animal valide avec un type d'animal différent",
+    "technique": "classe_equivalence",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur 'reception' est authentifié",
+      "Le propriétaire avec l'ID 1 existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners/1/pets",
+      "query": {},
+      "body_json": "{\"name\": \"Bella\", \"birthDate\": \"2019-11-20\", \"type\": {\"id\": 3, \"name\": \"lizard\"}}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "name",
+          "operator": "equals",
+          "value": "Bella"
+        },
+        {
+          "path": "id",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

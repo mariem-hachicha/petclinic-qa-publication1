@@ -1,0 +1,117 @@
+{
+  "requirement_id": "REQ-OWN-01",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:26:29+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-01-01",
+      "requirement_id": "REQ-OWN-01",
+      "title": "Création d'un propriétaire avec des données valides par l'agent de réception",
+      "technique": "nominal",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur est authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"John\",\"lastName\":\"Doe\",\"address\":\"123 Main Street\",\"city\":\"Springfield\",\"telephone\":\"0612345678\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "id",
+            "operator": "exists"
+          },
+          {
+            "path": "firstName",
+            "operator": "equals",
+            "value": "John"
+          },
+          {
+            "path": "lastName",
+            "operator": "equals",
+            "value": "Doe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-01-02",
+      "requirement_id": "REQ-OWN-01",
+      "title": "Création d'un propriétaire avec des données valides par un administrateur",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "L'utilisateur est authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Alice\",\"lastName\":\"Smith\",\"address\":\"456 Oak Avenue\",\"city\":\"Metropolis\",\"telephone\":\"0145896325\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "id",
+            "operator": "exists"
+          },
+          {
+            "path": "firstName",
+            "operator": "equals",
+            "value": "Alice"
+          },
+          {
+            "path": "lastName",
+            "operator": "equals",
+            "value": "Smith"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-01-03",
+      "requirement_id": "REQ-OWN-01",
+      "title": "Création d'un propriétaire avec des informations d'adresse complexes",
+      "technique": "classe_equivalence",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur est authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Robert\",\"lastName\":\"Johnson\",\"address\":\"789 Boulevard Saint-Germain, Apt 4B\",\"city\":\"Paris\",\"telephone\":\"0987654321\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "id",
+            "operator": "exists"
+          },
+          {
+            "path": "firstName",
+            "operator": "equals",
+            "value": "Robert"
+          },
+          {
+            "path": "lastName",
+            "operator": "equals",
+            "value": "Johnson"
+          }
+        ]
+      }
+    }
+  ]
+}

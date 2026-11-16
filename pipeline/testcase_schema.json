@@ -35,7 +35,7 @@
             "required": ["path", "operator"],
             "additionalProperties": false,
             "properties": {
-              "path": { "type": "string" },
+              "path": { "type": "string", "pattern": "^(\\[[0-9]+\\]|[A-Za-z_][A-Za-z0-9_]*(\\[[0-9]+\\])?)(\\.[A-Za-z_][A-Za-z0-9_]*(\\[[0-9]+\\])?)*$" },
               "operator": { "enum": ["equals", "exists", "not_exists", "contains"] },
               "value": {}
             }

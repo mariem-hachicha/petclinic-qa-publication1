@@ -1,0 +1,132 @@
+{
+  "requirement_id": "REQ-PAG-01",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:27:18+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-PAG-01-01",
+      "requirement_id": "REQ-PAG-01",
+      "title": "Obtenir la première page de propriétaires par défaut avec le rôle VET",
+      "technique": "nominal",
+      "user": "vet",
+      "preconditions": [
+        "L'utilisateur vet est authentifié",
+        "Des propriétaires existent dans la base de données"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/v2/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "page",
+            "operator": "equals",
+            "value": 0
+          },
+          {
+            "path": "size",
+            "operator": "equals",
+            "value": 20
+          },
+          {
+            "path": "totalElements",
+            "operator": "exists"
+          },
+          {
+            "path": "totalPages",
+            "operator": "exists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-PAG-01-02",
+      "requirement_id": "REQ-PAG-01",
+      "title": "Obtenir la première page de propriétaires par défaut avec le rôle ADMIN",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "L'utilisateur admin est authentifié",
+        "Des propriétaires existent dans la base de données"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/v2/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "page",
+            "operator": "equals",
+            "value": 0
+          },
+          {
+            "path": "size",
+            "operator": "equals",
+            "value": 20
+          },
+          {
+            "path": "totalElements",
+            "operator": "exists"
+          },
+          {
+            "path": "totalPages",
+            "operator": "exists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-PAG-01-03",
+      "requirement_id": "REQ-PAG-01",
+      "title": "Obtenir la première page de propriétaires par défaut avec le rôle RECEPTIONIST",
+      "technique": "classe_equivalence",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur reception est authentifié",
+        "Des propriétaires existent dans la base de données"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/v2/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "page",
+            "operator": "equals",
+            "value": 0
+          },
+          {
+            "path": "size",
+            "operator": "equals",
+            "value": 20
+          },
+          {
+            "path": "totalElements",
+            "operator": "exists"
+          },
+          {
+            "path": "totalPages",
+            "operator": "exists"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "requirement_id": "REQ-USR-01",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:32:25+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-USR-01-01",
+      "requirement_id": "REQ-USR-01",
+      "title": "Création d'un utilisateur avec le rôle ROLE_OWNER par un administrateur",
+      "technique": "nominal",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/users",
+        "query": {},
+        "body_json": "{\"username\":\"new_owner\",\"password\":\"new_owner\",\"enabled\":true,\"roles\":[{\"name\":\"ROLE_OWNER\"}]}"
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "username",
+            "operator": "equals",
+            "value": "new_owner"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-USR-01-02",
+      "requirement_id": "REQ-USR-01",
+      "title": "Création d'un utilisateur avec le rôle ROLE_VET par un administrateur",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/users",
+        "query": {},
+        "body_json": "{\"username\":\"new_vet\",\"password\":\"new_vet\",\"enabled\":true,\"roles\":[{\"name\":\"ROLE_VET\"}]}"
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "username",
+            "operator": "equals",
+            "value": "new_vet"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-USR-01-03",
+      "requirement_id": "REQ-USR-01",
+      "title": "Création d'un utilisateur avec le rôle ROLE_RECEPTIONIST par un administrateur",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/users",
+        "query": {},
+        "body_json": "{\"username\":\"new_receptionist\",\"password\":\"new_receptionist\",\"enabled\":true,\"roles\":[{\"name\":\"ROLE_RECEPTIONIST\"}]}"
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "username",
+            "operator": "equals",
+            "value": "new_receptionist"
+          }
+        ]
+      }
+    }
+  ]
+}

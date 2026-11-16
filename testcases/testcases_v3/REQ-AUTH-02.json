@@ -1,0 +1,75 @@
+{
+  "requirement_id": "REQ-AUTH-02",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:25:10+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-AUTH-02-01",
+      "requirement_id": "REQ-AUTH-02",
+      "title": "Échec de connexion pour l'utilisateur admin avec un mot de passe erroné",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'admin' existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"admin\",\"password\":\"wrongpassword\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-02-02",
+      "requirement_id": "REQ-AUTH-02",
+      "title": "Échec de connexion pour l'utilisateur vet avec un mot de passe erroné",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'vet' existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"vet\",\"password\":\"badpass123\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-02-03",
+      "requirement_id": "REQ-AUTH-02",
+      "title": "Échec de connexion pour l'utilisateur george avec un mot de passe erroné",
+      "technique": "erreur",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'george' existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"george\",\"password\":\"invalid_pass\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    }
+  ]
+}

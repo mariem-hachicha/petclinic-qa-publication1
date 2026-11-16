@@ -1,0 +1,108 @@
+{
+  "requirement_id": "REQ-VIS-01",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:28:22+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-VIS-01-01",
+      "requirement_id": "REQ-VIS-01",
+      "title": "Ajout d'une visite valide par un vétérinaire (cas nominal)",
+      "technique": "nominal",
+      "user": "vet",
+      "preconditions": [
+        "Authentifié en tant que 'vet' (ROLE_VET)",
+        "L'animal 1 du propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets/1/visits",
+        "query": {},
+        "body_json": "{\"date\": \"2023-10-15\", \"description\": \"Vaccination annuelle\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "date",
+            "operator": "equals",
+            "value": "2023-10-15"
+          },
+          {
+            "path": "description",
+            "operator": "equals",
+            "value": "Vaccination annuelle"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-VIS-01-02",
+      "requirement_id": "REQ-VIS-01",
+      "title": "Ajout d'une visite valide avec une description détaillée et une autre date",
+      "technique": "classe_equivalence",
+      "user": "vet",
+      "preconditions": [
+        "Authentifié en tant que 'vet' (ROLE_VET)",
+        "L'animal 1 du propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets/1/visits",
+        "query": {},
+        "body_json": "{\"date\": \"2024-01-20\", \"description\": \"Contrôle de routine après chirurgie dentaire\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "date",
+            "operator": "equals",
+            "value": "2024-01-20"
+          },
+          {
+            "path": "description",
+            "operator": "equals",
+            "value": "Contrôle de routine après chirurgie dentaire"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-VIS-01-03",
+      "requirement_id": "REQ-VIS-01",
+      "title": "Ajout d'une visite valide par un administrateur",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)",
+        "L'animal 1 du propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets/1/visits",
+        "query": {},
+        "body_json": "{\"date\": \"2023-12-01\", \"description\": \"Examen général\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "date",
+            "operator": "equals",
+            "value": "2023-12-01"
+          },
+          {
+            "path": "description",
+            "operator": "equals",
+            "value": "Examen général"
+          }
+        ]
+      }
+    }
+  ]
+}

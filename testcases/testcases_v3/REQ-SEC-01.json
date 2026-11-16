@@ -1,0 +1,54 @@
+{
+  "requirement_id": "REQ-SEC-01",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:25:47+00:00",
+  "generated": 2,
+  "valid": 2,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-SEC-01-01",
+      "requirement_id": "REQ-SEC-01",
+      "title": "Accès à la liste globale des propriétaires sans jeton d'authentification",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "Aucun jeton envoyé dans la requête"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-SEC-01-02",
+      "requirement_id": "REQ-SEC-01",
+      "title": "Accès à la liste des propriétaires avec filtre lastName sans jeton d'authentification",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "Aucun jeton envoyé dans la requête"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {
+          "lastName": "Davis"
+        },
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    }
+  ]
+}

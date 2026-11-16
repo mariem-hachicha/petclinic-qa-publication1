@@ -98,9 +98,19 @@ def check_testcases(data, requirement, validator):
                 problems.append(f"methode {tc['request']['method']} au lieu de {method}")
             if not expected_path.fullmatch(tc["request"]["path"]):
                 problems.append(f"chemin {tc['request']['path']} ne correspond pas a {endpoint_path}")
+            
             if tc["expected"]["status"] != requirement["expected_status"]:
                 problems.append(f"status {tc['expected']['status']} au lieu de "
                                 f"{requirement['expected_status']} (contrat)")
+                        # Coherence entre l'etiquette (technique) et le code attendu.
+            status = tc["expected"]["status"]
+            technique = tc["technique"]
+            if technique == "nominal" and not 200 <= status < 300:
+                problems.append(f"technique 'nominal' mais statut {status} (nominal = succes 2xx)")
+            if technique == "erreur" and status < 400:
+                problems.append(f"technique 'erreur' mais statut {status} (erreur = 4xx ou 5xx)")
+            if technique == "securite" and status not in (401, 403):
+                problems.append(f"technique 'securite' mais statut {status} (securite = 401 ou 403)")
         if problems:
             errors_found.append(f"cas {i} : " + " ; ".join(problems))
         else:
