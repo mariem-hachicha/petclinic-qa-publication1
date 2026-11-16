@@ -26,6 +26,9 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <rest-assured.version>5.5.6</rest-assured.version>
+                <!-- REST Assured 5.5.x n'est pas compatible avec Groovy 5 (impose par Spring Boot 4) :
+             on force Groovy 4 pour les tests. Cf. notes de version Spring REST Docs 4.0. -->
+        <groovy.version>4.0.33</groovy.version>
 
         <!-- Maven plugins and supporting properties -->
         <maven.checkstyle-plugin.version>3.6.0</maven.checkstyle-plugin.version>
