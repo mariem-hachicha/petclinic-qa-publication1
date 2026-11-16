@@ -1,0 +1,74 @@
+{
+  "requirement_id": "REQ-SEC-03",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T20:15:06+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-SEC-03-01",
+      "requirement_id": "REQ-SEC-03",
+      "title": "Requête avec un jeton administrateur dont le payload a été altéré",
+      "technique": "securite",
+      "user": "admin",
+      "preconditions": [
+        "Le jeton d'accès de l'utilisateur 'admin' a été modifié au niveau des revendications (payload) sans recalculer la signature."
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-SEC-03-02",
+      "requirement_id": "REQ-SEC-03",
+      "title": "Requête avec un jeton réceptionniste dont la signature a été corrompue",
+      "technique": "securite",
+      "user": "reception",
+      "preconditions": [
+        "La signature du jeton d'accès de l'utilisateur 'reception' a été altérée par modification de caractères."
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-SEC-03-03",
+      "requirement_id": "REQ-SEC-03",
+      "title": "Requête filtrée avec un jeton vétérinaire à la signature invalide",
+      "technique": "securite",
+      "user": "vet",
+      "preconditions": [
+        "Le jeton d'accès de l'utilisateur 'vet' comporte une signature invalide."
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {
+          "lastName": "Davis"
+        },
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    }
+  ]
+}

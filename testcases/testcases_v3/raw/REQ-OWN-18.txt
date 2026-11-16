@@ -1,0 +1,95 @@
+[
+  {
+    "id": "TC-OWN-18-01",
+    "requirement_id": "REQ-OWN-18",
+    "title": "Obtenir les détails du propriétaire 1 avec ses animaux en tant que vétérinaire",
+    "technique": "nominal",
+    "user": "vet",
+    "preconditions": [
+      "Authentification en tant que 'vet' (ROLE_VET)",
+      "Le propriétaire avec l'identifiant 1 existe et a au moins un animal rattaché"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners/1",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "id",
+          "operator": "equals",
+          "value": 1
+        },
+        {
+          "path": "pets",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-OWN-18-02",
+    "requirement_id": "REQ-OWN-18",
+    "title": "Obtenir les détails du propriétaire 1 en tant qu'administrateur",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "Authentification en tant que 'admin' (ROLE_ADMIN)",
+      "Le propriétaire avec l'identifiant 1 existe"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners/1",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "id",
+          "operator": "equals",
+          "value": 1
+        },
+        {
+          "path": "pets",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-OWN-18-03",
+    "requirement_id": "REQ-OWN-18",
+    "title": "Obtenir les détails du propriétaire 2 avec le rôle réception",
+    "technique": "classe_equivalence",
+    "user": "reception",
+    "preconditions": [
+      "Authentification en tant que 'reception' (ROLE_RECEPTIONIST)",
+      "Le propriétaire avec l'identifiant 2 existe"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners/2",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "id",
+          "operator": "equals",
+          "value": 2
+        },
+        {
+          "path": "pets",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

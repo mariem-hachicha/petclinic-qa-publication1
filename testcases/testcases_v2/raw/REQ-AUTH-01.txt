@@ -1,0 +1,107 @@
+[
+  {
+    "id": "TC-AUTH-01-01",
+    "requirement_id": "REQ-AUTH-01",
+    "title": "Connexion réussie avec le compte administrateur admin",
+    "technique": "nominal",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise",
+      "L'utilisateur 'admin' avec le mot de passe 'admin' existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"admin\",\"password\":\"admin\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "accessToken",
+          "operator": "exists"
+        },
+        {
+          "path": "tokenType",
+          "operator": "equals",
+          "value": "Bearer"
+        },
+        {
+          "path": "expiresIn",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-AUTH-01-02",
+    "requirement_id": "REQ-AUTH-01",
+    "title": "Connexion réussie avec un compte vétérinaire vet",
+    "technique": "classe_equivalence",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise",
+      "L'utilisateur 'vet' avec le mot de passe 'vet' existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"vet\",\"password\":\"vet\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "accessToken",
+          "operator": "exists"
+        },
+        {
+          "path": "tokenType",
+          "operator": "equals",
+          "value": "Bearer"
+        },
+        {
+          "path": "expiresIn",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-AUTH-01-03",
+    "requirement_id": "REQ-AUTH-01",
+    "title": "Connexion réussie avec un compte propriétaire george",
+    "technique": "classe_equivalence",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise",
+      "L'utilisateur 'george' avec le mot de passe 'george' existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"george\",\"password\":\"george\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "accessToken",
+          "operator": "exists"
+        },
+        {
+          "path": "tokenType",
+          "operator": "equals",
+          "value": "Bearer"
+        },
+        {
+          "path": "expiresIn",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

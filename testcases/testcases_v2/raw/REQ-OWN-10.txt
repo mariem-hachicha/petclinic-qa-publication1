@@ -1,0 +1,62 @@
+[
+  {
+    "id": "TC-OWN-10-01",
+    "requirement_id": "REQ-OWN-10",
+    "title": "Création d'un propriétaire avec un chiffre à la fin du prénom",
+    "technique": "erreur",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur est connecté en tant que 'reception'"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Jean2\",\"lastName\":\"Dupont\",\"address\":\"123 Rue de Paris\",\"city\":\"Paris\",\"telephone\":\"0123456789\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-10-02",
+    "requirement_id": "REQ-OWN-10",
+    "title": "Création d'un propriétaire avec un chiffre au début du prénom",
+    "technique": "erreur",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur est connecté en tant que 'reception'"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"1Jean\",\"lastName\":\"Martin\",\"address\":\"456 Avenue des Fleurs\",\"city\":\"Lyon\",\"telephone\":\"0472000000\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-10-03",
+    "requirement_id": "REQ-OWN-10",
+    "title": "Création d'un propriétaire avec un prénom composé uniquement de chiffres",
+    "technique": "erreur",
+    "user": "admin",
+    "preconditions": [
+      "L'utilisateur est connecté en tant que 'admin'"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"12345\",\"lastName\":\"Bernard\",\"address\":\"789 Boulevard Central\",\"city\":\"Marseille\",\"telephone\":\"0491000000\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  }
+]

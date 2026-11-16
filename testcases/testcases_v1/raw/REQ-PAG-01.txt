@@ -1,0 +1,61 @@
+[
+  {
+    "id": "TC-PAG-01-01",
+    "requirement_id": "REQ-PAG-01",
+    "title": "Vérification de la pagination par défaut lors de la récupération des propriétaires",
+    "technique": "nominal",
+    "user": "vet",
+    "preconditions": [
+      "Authentifié en tant que 'vet' (ROLE_VET)"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/v2/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "page",
+          "operator": "equals",
+          "value": 0
+        },
+        {
+          "path": "size",
+          "operator": "equals",
+          "value": 20
+        },
+        {
+          "path": "totalElements",
+          "operator": "exists"
+        },
+        {
+          "path": "totalPages",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-PAG-01-02",
+    "requirement_id": "REQ-PAG-01",
+    "title": "Tentative de récupération de la page par défaut sans authentification",
+    "technique": "securite",
+    "user": null,
+    "preconditions": [
+      "Aucun jeton d'authentification fourni"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/v2/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  }
+]

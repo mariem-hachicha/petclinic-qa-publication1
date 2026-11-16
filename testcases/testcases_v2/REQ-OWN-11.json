@@ -1,0 +1,90 @@
+{
+  "requirement_id": "REQ-OWN-11",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T20:18:15+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-11-01",
+      "requirement_id": "REQ-OWN-11",
+      "title": "Création d'un propriétaire avec un prénom contenant un tiret",
+      "technique": "nominal",
+      "user": "reception",
+      "preconditions": [
+        "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Jean-Pierre\",\"lastName\":\"Dupont\",\"address\":\"12 rue de la Paix\",\"city\":\"Paris\",\"telephone\":\"0123456789\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.firstName",
+            "operator": "equals",
+            "value": "Jean-Pierre"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-11-02",
+      "requirement_id": "REQ-OWN-11",
+      "title": "Création d'un propriétaire avec un prénom contenant une apostrophe",
+      "technique": "classe_equivalence",
+      "user": "reception",
+      "preconditions": [
+        "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"D'Artagnan\",\"lastName\":\"Martin\",\"address\":\"5 avenue des Fleurs\",\"city\":\"Lyon\",\"telephone\":\"0987654321\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.firstName",
+            "operator": "equals",
+            "value": "D'Artagnan"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-11-03",
+      "requirement_id": "REQ-OWN-11",
+      "title": "Création par l'administrateur d'un propriétaire avec tiret et apostrophe",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Jean-d'Arc\",\"lastName\":\"Durand\",\"address\":\"10 rue Neuve\",\"city\":\"Lille\",\"telephone\":\"0611223344\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.firstName",
+            "operator": "equals",
+            "value": "Jean-d'Arc"
+          }
+        ]
+      }
+    }
+  ]
+}

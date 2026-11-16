@@ -1,0 +1,86 @@
+{
+  "requirement_id": "REQ-VET-01",
+  "model": "gemini-3.5-flash",
+  "prompt": "pipeline/prompts/testcases_v1.md",
+  "generated_at": "2026-11-10T22:55:53+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-VET-01-01",
+      "requirement_id": "REQ-VET-01",
+      "title": "Lister les vétérinaires avec leurs spécialités en tant que réceptionniste",
+      "technique": "nominal",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur 'reception' est authentifié avec le rôle ROLE_RECEPTIONIST"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/vets",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "$[0].specialties",
+            "operator": "exists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-VET-01-02",
+      "requirement_id": "REQ-VET-01",
+      "title": "Lister les vétérinaires avec leurs spécialités en tant qu'administrateur",
+      "technique": "securite",
+      "user": "admin",
+      "preconditions": [
+        "L'utilisateur 'admin' est authentifié avec le rôle ROLE_ADMIN"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/vets",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "$[0].specialties",
+            "operator": "exists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-VET-01-03",
+      "requirement_id": "REQ-VET-01",
+      "title": "Lister les vétérinaires avec leurs spécialités en tant que vétérinaire",
+      "technique": "securite",
+      "user": "vet",
+      "preconditions": [
+        "L'utilisateur 'vet' est authentifié avec le rôle ROLE_VET"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/vets",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "$[0].specialties",
+            "operator": "exists"
+          }
+        ]
+      }
+    }
+  ]
+}

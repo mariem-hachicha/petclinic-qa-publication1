@@ -1,0 +1,44 @@
+[
+  {
+    "id": "TC-OWN-17-01",
+    "requirement_id": "REQ-OWN-17",
+    "title": "Refus d'accès à la liste des propriétaires pour le rôle OWNER (george)",
+    "technique": "securite",
+    "user": "george",
+    "preconditions": [
+      "Authentifié en tant que 'george' (ROLE_OWNER)"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-17-02",
+    "requirement_id": "REQ-OWN-17",
+    "title": "Refus d'accès à la recherche filtrée des propriétaires pour le rôle OWNER (betty)",
+    "technique": "securite",
+    "user": "betty",
+    "preconditions": [
+      "Authentifié en tant que 'betty' (ROLE_OWNER)"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {
+        "lastName": "Davis"
+      },
+      "body_json": null
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  }
+]

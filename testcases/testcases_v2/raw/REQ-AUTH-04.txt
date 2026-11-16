@@ -1,0 +1,82 @@
+[
+  {
+    "id": "TC-AUTH-04-01",
+    "requirement_id": "REQ-AUTH-04",
+    "title": "Connexion refusee si le champ username est absent",
+    "technique": "erreur",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"password\":\"admin\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-AUTH-04-02",
+    "requirement_id": "REQ-AUTH-04",
+    "title": "Connexion refusee si le champ password est absent",
+    "technique": "erreur",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"admin\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-AUTH-04-03",
+    "requirement_id": "REQ-AUTH-04",
+    "title": "Connexion refusee si le champ username est vide",
+    "technique": "valeur_limite",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"\",\"password\":\"admin\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-AUTH-04-04",
+    "requirement_id": "REQ-AUTH-04",
+    "title": "Connexion refusee si le champ password est vide",
+    "technique": "valeur_limite",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"admin\",\"password\":\"\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  }
+]

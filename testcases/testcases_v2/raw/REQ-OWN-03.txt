@@ -1,0 +1,42 @@
+[
+  {
+    "id": "TC-OWN-03-01",
+    "requirement_id": "REQ-OWN-03",
+    "title": "Création d'un propriétaire sans le champ lastName par un réceptionniste",
+    "technique": "erreur",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur est authentifié avec le rôle ROLE_RECEPTIONIST"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Jean\",\"address\":\"15 rue de la Paix\",\"city\":\"Paris\",\"telephone\":\"0123456789\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-03-02",
+    "requirement_id": "REQ-OWN-03",
+    "title": "Création d'un propriétaire sans le champ lastName par un administrateur",
+    "technique": "erreur",
+    "user": "admin",
+    "preconditions": [
+      "L'utilisateur est authentifié avec le rôle ROLE_ADMIN"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Pierre\",\"address\":\"20 avenue Foch\",\"city\":\"Lyon\",\"telephone\":\"0478123456\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  }
+]

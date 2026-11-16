@@ -1,0 +1,62 @@
+[
+  {
+    "id": "TC-OWN-07-01",
+    "requirement_id": "REQ-OWN-07",
+    "title": "Création d'un propriétaire avec un téléphone contenant un tiret",
+    "technique": "erreur",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Jean\",\"lastName\":\"Dupont\",\"address\":\"10 rue de Paris\",\"city\":\"Paris\",\"telephone\":\"06-12345678\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-07-02",
+    "requirement_id": "REQ-OWN-07",
+    "title": "Création d'un propriétaire avec un téléphone contenant des lettres",
+    "technique": "classe_equivalence",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Marie\",\"lastName\":\"Martin\",\"address\":\"12 avenue des Fleurs\",\"city\":\"Lyon\",\"telephone\":\"06ABC12345\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-07-03",
+    "requirement_id": "REQ-OWN-07",
+    "title": "Création d'un propriétaire avec un téléphone contenant des espaces",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Pierre\",\"lastName\":\"Durand\",\"address\":\"5 boulevard Victor Hugo\",\"city\":\"Lille\",\"telephone\":\"06 12 34 56 78\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  }
+]

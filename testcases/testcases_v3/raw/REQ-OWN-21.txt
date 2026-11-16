@@ -1,0 +1,65 @@
+[
+  {
+    "id": "TC-OWN-21-01",
+    "requirement_id": "REQ-OWN-21",
+    "title": "Refus de lecture de la fiche du propriétaire 2 par l'utilisateur george",
+    "technique": "securite",
+    "user": "george",
+    "preconditions": [
+      "L'utilisateur 'george' est authentifié (ROLE_OWNER, propriétaire 1)",
+      "Le propriétaire avec l'ID 2 existe dans le système"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners/2",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-21-02",
+    "requirement_id": "REQ-OWN-21",
+    "title": "Refus de lecture de la fiche du propriétaire 1 par l'utilisateur betty",
+    "technique": "securite",
+    "user": "betty",
+    "preconditions": [
+      "L'utilisateur 'betty' est authentifié (ROLE_OWNER, propriétaire 2)",
+      "Le propriétaire avec l'ID 1 existe dans le système"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners/1",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-21-03",
+    "requirement_id": "REQ-OWN-21",
+    "title": "Refus de lecture d'un autre propriétaire (ID 3) par l'utilisateur george",
+    "technique": "securite",
+    "user": "george",
+    "preconditions": [
+      "L'utilisateur 'george' est authentifié (ROLE_OWNER, propriétaire 1)",
+      "Le propriétaire avec l'ID 3 existe dans le système"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners/3",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  }
+]

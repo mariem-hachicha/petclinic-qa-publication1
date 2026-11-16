@@ -1,0 +1,76 @@
+{
+  "requirement_id": "REQ-AUTH-03",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T20:14:19+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-AUTH-03-01",
+      "requirement_id": "REQ-AUTH-03",
+      "title": "Refus de connexion pour un nom d'utilisateur inexistant",
+      "technique": "erreur",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'inconnu' n'existe pas dans la base de données"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\": \"inconnu\", \"password\": \"password123\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-03-02",
+      "requirement_id": "REQ-AUTH-03",
+      "title": "Refus de connexion pour un identifiant inconnu au format email",
+      "technique": "classe_equivalence",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'unknown@example.com' n'existe pas dans la base de données"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\": \"unknown@example.com\", \"password\": \"admin\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-03-03",
+      "requirement_id": "REQ-AUTH-03",
+      "title": "Refus de connexion pour un identifiant inconnu avec mot de passe valide d'un autre utilisateur",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise",
+        "L'utilisateur 'user_inexistant' n'existe pas dans la base de données",
+        "Le mot de passe 'admin' est le mot de passe d'un utilisateur existant"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\": \"user_inexistant\", \"password\": \"admin\"}"
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    }
+  ]
+}

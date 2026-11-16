@@ -1,0 +1,262 @@
+Tu es un ingenieur QA. Tu ecris des cas de test d'API REST pour l'application PetClinic.
+
+## Contexte fourni (seule source de verite)
+Conventions du projet (utilisateurs, authentification, signification des champs) :
+{
+  "expected_status": "Code promis par le CONTRAT. Si le code réel diffère, l'écart est décrit dans 'ecart_connu'.",
+  "source.type": "'openapi' = chemin dans le contrat ; 'code' = classe/méthode Java (règle absente du contrat)",
+  "utilisateurs": {
+    "admin": "ROLE_ADMIN",
+    "reception": "ROLE_RECEPTIONIST",
+    "vet": "ROLE_VET",
+    "george": "ROLE_OWNER, propriétaire 1",
+    "betty": "ROLE_OWNER, propriétaire 2"
+  },
+  "mots_de_passe": "identiques au nom d'utilisateur",
+  "authentification": "POST /api/auth/login, puis en-tête 'Authorization: Bearer <accessToken>'",
+  "ecart_connu": "Différence connue entre le contrat et le code réel ; 'À vérifier' = hypothèse non encore confirmée par un test.",
+  "note": "Indication technique pour écrire le test, pas un écart."
+}
+
+Schema JSON qu'un cas de test DOIT respecter :
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cas de test PetClinic",
+  "type": "object",
+  "required": [
+    "id",
+    "requirement_id",
+    "title",
+    "technique",
+    "user",
+    "preconditions",
+    "request",
+    "expected"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^TC-[A-Z]+-[0-9]{2}-[0-9]{2}$"
+    },
+    "requirement_id": {
+      "type": "string",
+      "pattern": "^REQ-[A-Z]+-[0-9]{2}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 120
+    },
+    "technique": {
+      "enum": [
+        "nominal",
+        "classe_equivalence",
+        "valeur_limite",
+        "erreur",
+        "securite"
+      ]
+    },
+    "user": {
+      "enum": [
+        "admin",
+        "reception",
+        "vet",
+        "george",
+        "betty",
+        null
+      ]
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "request": {
+      "type": "object",
+      "required": [
+        "method",
+        "path",
+        "query",
+        "body_json"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^/api/"
+        },
+        "query": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "body_json": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "required": [
+        "status",
+        "body_checks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        "body_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "operator"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "operator": {
+                "enum": [
+                  "equals",
+                  "exists",
+                  "not_exists",
+                  "contains"
+                ]
+              },
+              "value": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+## Exigence a couvrir
+{
+  "id": "REQ-OWN-02",
+  "endpoint": "POST /api/owners",
+  "operationId": "addOwner",
+  "category": "validation",
+  "description": "La création d'un propriétaire sans le champ obligatoire 'firstName' est refusée.",
+  "preconditions": [
+    "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+  ],
+  "expected_status": 400,
+  "source": {
+    "type": "openapi",
+    "reference": "components.schemas.OwnerFields.required (firstName)"
+  },
+  "priority": "haute"
+}
+
+## Autres exigences du MEME endpoint (deja couvertes ailleurs : ne les teste PAS ici)
+[
+  {
+    "id": "REQ-OWN-01",
+    "description": "La création d'un propriétaire avec des champs valides réussit et renvoie le propriétaire créé, avec un identifiant attribué par le serveur.",
+    "expected_status": 201
+  },
+  {
+    "id": "REQ-OWN-03",
+    "description": "La création d'un propriétaire sans le champ obligatoire 'lastName' est refusée.",
+    "expected_status": 400
+  },
+  {
+    "id": "REQ-OWN-04",
+    "description": "La création d'un propriétaire sans le champ obligatoire 'address' est refusée.",
+    "expected_status": 400
+  },
+  {
+    "id": "REQ-OWN-05",
+    "description": "La création d'un propriétaire sans le champ obligatoire 'city' est refusée.",
+    "expected_status": 400
+  },
+  {
+    "id": "REQ-OWN-06",
+    "description": "La création d'un propriétaire sans le champ obligatoire 'telephone' est refusée.",
+    "expected_status": 400
+  },
+  {
+    "id": "REQ-OWN-07",
+    "description": "Un téléphone contenant un caractère autre qu'un chiffre (ex. '06-12') est refusé.",
+    "expected_status": 400
+  },
+  {
+    "id": "REQ-OWN-08",
+    "description": "Un téléphone composé uniquement de chiffres, de longueur comprise entre 1 et 20 (ex. '12345'), est accepté.",
+    "expected_status": 201
+  },
+  {
+    "id": "REQ-OWN-09",
+    "description": "Un téléphone de plus de 20 chiffres est refusé.",
+    "expected_status": 400
+  },
+  {
+    "id": "REQ-OWN-10",
+    "description": "Un prénom contenant un chiffre (ex. 'Jean2') est refusé.",
+    "expected_status": 400
+  },
+  {
+    "id": "REQ-OWN-11",
+    "description": "Un prénom composé avec un tiret ou une apostrophe (ex. 'Jean-Pierre') est accepté.",
+    "expected_status": 201
+  },
+  {
+    "id": "REQ-OWN-12",
+    "description": "Un prénom de plus de 30 caractères est refusé.",
+    "expected_status": 400
+  },
+  {
+    "id": "REQ-OWN-13",
+    "description": "Un vétérinaire n'a pas le droit de créer un propriétaire.",
+    "expected_status": 403
+  }
+]
+
+## Perimetre (regle la plus importante)
+- Tu testes UNIQUEMENT le comportement decrit dans l'exigence a couvrir.
+- TOUS les cas de test doivent avoir "expected.status" = 400. Aucune exception.
+- Ne genere PAS de cas sans authentification (401) ni avec un role non autorise (403),
+  sauf si 400 vaut 401 ou 403 : ces situations sont couvertes par des exigences dediees.
+- Pour obtenir plusieurs cas, fais varier les DONNEES ou l'UTILISATEUR AUTORISE, jamais le code attendu.
+
+## Regles
+1. Genere entre 2 et 4 cas de test pour cette exigence.
+2. N'invente rien : aucun endpoint, champ, utilisateur ou regle metier absent du contexte ci-dessus.
+3. "requirement_id" = l'id de l'exigence. "id" = "TC-" + la partie apres "REQ-" + "-" + numero sur 2 chiffres.
+   Exemple : pour REQ-AUTH-01 -> TC-AUTH-01-01, TC-AUTH-01-02.
+4. "request.method" et "request.path" viennent du champ "endpoint". Remplace chaque parametre {xxx} du chemin
+   par une valeur concrete ; si l'exigence ne donne pas d'identifiant, utilise 1 pour une ressource existante
+   et 9999 pour une ressource inexistante, et ecris cette hypothese dans "preconditions".
+5. "expected.status" = 400, le code promis par le CONTRAT,
+   meme si un "ecart_connu" indique que le code reel est different.
+6. "user" = un des utilisateurs des conventions, ou null pour une requete sans authentification.
+   Ne mets jamais de jeton dans le cas de test.
+7. "request.body_json" = le corps JSON ecrit sous forme de CHAINE de caracteres, ou null s'il n'y a pas de corps.
+8. "expected.body_checks" ne verifie que des champs cites dans l'exigence. Pour une reponse 401, laisse la liste vide.
+9. "technique" : "nominal" pour le cas normal, "classe_equivalence" ou "valeur_limite" pour varier les donnees,
+   "erreur" pour une entree invalide, "securite" pour un probleme de droits ou d'authentification.
+
+## Format de sortie
+Reponds UNIQUEMENT par un tableau JSON de cas de test, sans texte autour et sans bloc markdown.

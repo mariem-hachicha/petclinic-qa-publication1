@@ -1,0 +1,66 @@
+[
+  {
+    "id": "TC-AUTH-02-01",
+    "requirement_id": "REQ-AUTH-02",
+    "title": "Échec d'authentification avec un mot de passe incorrect pour le compte admin",
+    "technique": "securite",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise",
+      "L'utilisateur 'admin' existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"admin\",\"password\":\"badpassword\"}"
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-AUTH-02-02",
+    "requirement_id": "REQ-AUTH-02",
+    "title": "Échec d'authentification avec un mot de passe vide pour le compte admin",
+    "technique": "erreur",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise",
+      "L'utilisateur 'admin' existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"admin\",\"password\":\"\"}"
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-AUTH-02-03",
+    "requirement_id": "REQ-AUTH-02",
+    "title": "Échec d'authentification avec le mot de passe d'un autre utilisateur",
+    "technique": "securite",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise",
+      "L'utilisateur 'admin' existe",
+      "L'utilisateur 'george' existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"admin\",\"password\":\"george\"}"
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  }
+]

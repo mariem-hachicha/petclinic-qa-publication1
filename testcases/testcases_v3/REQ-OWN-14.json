@@ -1,0 +1,90 @@
+{
+  "requirement_id": "REQ-OWN-14",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:28:53+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-14-01",
+      "requirement_id": "REQ-OWN-14",
+      "title": "Obtenir la liste de tous les propriétaires en tant que vétérinaire",
+      "technique": "nominal",
+      "user": "vet",
+      "preconditions": [
+        "L'utilisateur est connecté en tant que vet",
+        "Les propriétaires de démo existent dans la base de données"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "[0].id",
+            "operator": "exists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-14-02",
+      "requirement_id": "REQ-OWN-14",
+      "title": "Obtenir la liste de tous les propriétaires en tant qu'administrateur",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "L'utilisateur est connecté en tant que admin",
+        "Les propriétaires de démo existent dans la base de données"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "[0].id",
+            "operator": "exists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-14-03",
+      "requirement_id": "REQ-OWN-14",
+      "title": "Obtenir la liste de tous les propriétaires en tant que réceptionniste",
+      "technique": "classe_equivalence",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur est connecté en tant que reception",
+        "Les propriétaires de démo existent dans la base de données"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "[0].id",
+            "operator": "exists"
+          }
+        ]
+      }
+    }
+  ]
+}

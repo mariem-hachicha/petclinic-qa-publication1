@@ -1,0 +1,62 @@
+[
+  {
+    "id": "TC-SEC-02-01",
+    "requirement_id": "REQ-SEC-02",
+    "title": "Demande de la liste des propriétaires avec un jeton mal formé 'Bearer abc'",
+    "technique": "securite",
+    "user": null,
+    "preconditions": [
+      "En-tête 'Authorization: Bearer abc' fourni dans la requête"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-SEC-02-02",
+    "requirement_id": "REQ-SEC-02",
+    "title": "Demande de la liste des propriétaires avec un jeton sans préfixe Bearer",
+    "technique": "securite",
+    "user": null,
+    "preconditions": [
+      "En-tête 'Authorization: malformed_token_string' fourni dans la requête"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-SEC-02-03",
+    "requirement_id": "REQ-SEC-02",
+    "title": "Demande de la liste des propriétaires avec une structure de jeton JWT tronquée",
+    "technique": "securite",
+    "user": null,
+    "preconditions": [
+      "En-tête 'Authorization: Bearer header.payload' (signature manquante) fourni dans la requête"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  }
+]

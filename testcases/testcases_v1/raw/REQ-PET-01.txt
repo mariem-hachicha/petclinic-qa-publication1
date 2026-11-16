@@ -1,0 +1,54 @@
+[
+  {
+    "id": "TC-PET-01-01",
+    "requirement_id": "REQ-PET-01",
+    "title": "Ajout d'un animal valide au propriétaire 1 avec le rôle reception",
+    "technique": "nominal",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)",
+      "Le propriétaire 1 existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners/1/pets",
+      "query": {},
+      "body_json": "{\"name\":\"Leo\",\"birthDate\":\"2020-09-07\",\"type\":{\"id\":1,\"name\":\"cat\"}}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "$.id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-PET-01-02",
+    "requirement_id": "REQ-PET-01",
+    "title": "Ajout d'un deuxième animal valide au propriétaire 1 avec un type différent",
+    "technique": "classe_equivalence",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)",
+      "Le propriétaire 1 existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners/1/pets",
+      "query": {},
+      "body_json": "{\"name\":\"Basil\",\"birthDate\":\"2018-03-15\",\"type\":{\"id\":2,\"name\":\"dog\"}}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "$.id",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

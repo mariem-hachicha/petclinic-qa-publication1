@@ -1,0 +1,40 @@
+{
+  "requirement_id": "REQ-SPE-01",
+  "model": "gemini-3.5-flash",
+  "prompt": "pipeline/prompts/testcases_v1.md",
+  "generated_at": "2026-11-10T22:57:03+00:00",
+  "generated": 3,
+  "valid": 1,
+  "errors": [
+    "cas 2 : status 401 au lieu de 200 (contrat)",
+    "cas 3 : status 403 au lieu de 200 (contrat)"
+  ],
+  "testcases": [
+    {
+      "id": "TC-SPE-01-01",
+      "requirement_id": "REQ-SPE-01",
+      "title": "Création nominale d'une spécialité par un administrateur",
+      "technique": "nominal",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/specialties",
+        "query": {},
+        "body_json": "{\"name\": \"radiology\"}"
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "$.name",
+            "operator": "equals",
+            "value": "radiology"
+          }
+        ]
+      }
+    }
+  ]
+}

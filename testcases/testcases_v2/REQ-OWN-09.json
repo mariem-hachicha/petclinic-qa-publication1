@@ -1,0 +1,72 @@
+{
+  "requirement_id": "REQ-OWN-09",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T20:17:42+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-09-01",
+      "requirement_id": "REQ-OWN-09",
+      "title": "Création d'un propriétaire avec un téléphone de 21 chiffres (valeur limite supérieure + 1)",
+      "technique": "valeur_limite",
+      "user": "reception",
+      "preconditions": [
+        "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Jean\",\"lastName\":\"Dupont\",\"address\":\"10 rue de la Paix\",\"city\":\"Paris\",\"telephone\":\"123456789012345678901\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-OWN-09-02",
+      "requirement_id": "REQ-OWN-09",
+      "title": "Création d'un propriétaire avec un téléphone de 25 chiffres",
+      "technique": "classe_equivalence",
+      "user": "reception",
+      "preconditions": [
+        "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Marie\",\"lastName\":\"Curie\",\"address\":\"12 avenue Foch\",\"city\":\"Lyon\",\"telephone\":\"1234567890123456789012345\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-OWN-09-03",
+      "requirement_id": "REQ-OWN-09",
+      "title": "Création d'un propriétaire avec un téléphone de 21 chiffres par l'admin",
+      "technique": "valeur_limite",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Pierre\",\"lastName\":\"Martin\",\"address\":\"5 boulevard Haussmann\",\"city\":\"Marseille\",\"telephone\":\"987654321098765432109\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    }
+  ]
+}

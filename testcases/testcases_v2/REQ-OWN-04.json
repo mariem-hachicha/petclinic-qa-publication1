@@ -1,0 +1,72 @@
+{
+  "requirement_id": "REQ-OWN-04",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T20:16:26+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-04-01",
+      "requirement_id": "REQ-OWN-04",
+      "title": "Création d'un propriétaire sans le champ address (champ absent)",
+      "technique": "erreur",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur est authentifié avec le rôle ROLE_RECEPTIONIST"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Jean\",\"lastName\":\"Dupont\",\"city\":\"Paris\",\"telephone\":\"0123456789\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-OWN-04-02",
+      "requirement_id": "REQ-OWN-04",
+      "title": "Création d'un propriétaire avec la valeur de address égale à null",
+      "technique": "erreur",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur est authentifié avec le rôle ROLE_RECEPTIONIST"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Jean\",\"lastName\":\"Dupont\",\"address\":null,\"city\":\"Paris\",\"telephone\":\"0123456789\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-OWN-04-03",
+      "requirement_id": "REQ-OWN-04",
+      "title": "Création d'un propriétaire sans address par un administrateur",
+      "technique": "erreur",
+      "user": "admin",
+      "preconditions": [
+        "L'utilisateur est authentifié avec le rôle ROLE_ADMIN"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": "{\"firstName\":\"Jean\",\"lastName\":\"Dupont\",\"city\":\"Paris\",\"telephone\":\"0123456789\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    }
+  ]
+}

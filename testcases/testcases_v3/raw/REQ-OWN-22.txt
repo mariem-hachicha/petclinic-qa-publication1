@@ -1,0 +1,44 @@
+[
+  {
+    "id": "TC-OWN-22-01",
+    "requirement_id": "REQ-OWN-22",
+    "title": "Demande d'un propriétaire inexistant (ID 999) par le propriétaire george",
+    "technique": "securite",
+    "user": "george",
+    "preconditions": [
+      "Authentifié en tant que 'george' (ROLE_OWNER)",
+      "Le propriétaire avec l'ID 999 n'existe pas"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners/999",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-22-02",
+    "requirement_id": "REQ-OWN-22",
+    "title": "Demande d'un propriétaire inexistant (ID 9999) par la propriétaire betty",
+    "technique": "securite",
+    "user": "betty",
+    "preconditions": [
+      "Authentifié en tant que 'betty' (ROLE_OWNER)",
+      "Le propriétaire avec l'ID 9999 n'existe pas"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners/9999",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  }
+]

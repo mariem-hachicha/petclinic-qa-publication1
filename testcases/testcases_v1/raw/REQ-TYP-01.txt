@@ -1,0 +1,42 @@
+[
+  {
+    "id": "TC-TYP-01-01",
+    "requirement_id": "REQ-TYP-01",
+    "title": "Obtenir la liste des types d'animaux en tant que vétérinaire",
+    "technique": "nominal",
+    "user": "vet",
+    "preconditions": [
+      "L'utilisateur 'vet' est connecté avec le rôle ROLE_VET"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/pettypes",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-TYP-01-02",
+    "requirement_id": "REQ-TYP-01",
+    "title": "Obtenir la liste des types d'animaux en tant qu'administrateur",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "L'utilisateur 'admin' est connecté avec le rôle ROLE_ADMIN"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/pettypes",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": []
+    }
+  }
+]

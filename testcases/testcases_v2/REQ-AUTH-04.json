@@ -1,0 +1,92 @@
+{
+  "requirement_id": "REQ-AUTH-04",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T20:14:34+00:00",
+  "generated": 4,
+  "valid": 4,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-AUTH-04-01",
+      "requirement_id": "REQ-AUTH-04",
+      "title": "Connexion refusee si le champ username est absent",
+      "technique": "erreur",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"password\":\"admin\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-04-02",
+      "requirement_id": "REQ-AUTH-04",
+      "title": "Connexion refusee si le champ password est absent",
+      "technique": "erreur",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"admin\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-04-03",
+      "requirement_id": "REQ-AUTH-04",
+      "title": "Connexion refusee si le champ username est vide",
+      "technique": "valeur_limite",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"\",\"password\":\"admin\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-AUTH-04-04",
+      "requirement_id": "REQ-AUTH-04",
+      "title": "Connexion refusee si le champ password est vide",
+      "technique": "valeur_limite",
+      "user": null,
+      "preconditions": [
+        "Aucune authentification requise"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/auth/login",
+        "query": {},
+        "body_json": "{\"username\":\"admin\",\"password\":\"\"}"
+      },
+      "expected": {
+        "status": 400,
+        "body_checks": []
+      }
+    }
+  ]
+}

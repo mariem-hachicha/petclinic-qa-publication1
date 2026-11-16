@@ -1,0 +1,96 @@
+{
+  "requirement_id": "REQ-OWN-16",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:29:47+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-16-01",
+      "requirement_id": "REQ-OWN-16",
+      "title": "Filtrer les propriétaires avec un nom de famille inexistant en tant que vet",
+      "technique": "nominal",
+      "user": "vet",
+      "preconditions": [
+        "L'utilisateur 'vet' est authentifié",
+        "Aucun propriétaire ne possède le nom de famille 'NonExistentName'"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {
+          "lastName": "NonExistentName"
+        },
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "[0]",
+            "operator": "not_exists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-16-02",
+      "requirement_id": "REQ-OWN-16",
+      "title": "Filtrer les propriétaires avec un nom de famille inexistant en tant qu'admin",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "L'utilisateur 'admin' est authentifié",
+        "Aucun propriétaire ne possède le nom de famille 'UnknownLastName'"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {
+          "lastName": "UnknownLastName"
+        },
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "[0]",
+            "operator": "not_exists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-16-03",
+      "requirement_id": "REQ-OWN-16",
+      "title": "Filtrer les propriétaires avec une valeur numérique sans correspondance en tant que reception",
+      "technique": "classe_equivalence",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur 'reception' est authentifié",
+        "Aucun propriétaire ne possède le nom de famille '99999'"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {
+          "lastName": "99999"
+        },
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "[0]",
+            "operator": "not_exists"
+          }
+        ]
+      }
+    }
+  ]
+}

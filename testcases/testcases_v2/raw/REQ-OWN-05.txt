@@ -1,0 +1,62 @@
+[
+  {
+    "id": "TC-OWN-05-01",
+    "requirement_id": "REQ-OWN-05",
+    "title": "Création de propriétaire sans la propriété city dans le corps de la requête",
+    "technique": "erreur",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur est authentifié en tant que reception (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Jean\",\"lastName\":\"Dupont\",\"address\":\"10 rue de la Paix\",\"telephone\":\"0123456789\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-05-02",
+    "requirement_id": "REQ-OWN-05",
+    "title": "Création de propriétaire avec la valeur city égale à null",
+    "technique": "classe_equivalence",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur est authentifié en tant que reception (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Marie\",\"lastName\":\"Curie\",\"address\":\"12 avenue Foch\",\"city\":null,\"telephone\":\"0612345678\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-05-03",
+    "requirement_id": "REQ-OWN-05",
+    "title": "Création de propriétaire sans le champ city en tant qu'administrateur",
+    "technique": "erreur",
+    "user": "admin",
+    "preconditions": [
+      "L'utilisateur est authentifié en tant que admin (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Pierre\",\"lastName\":\"Martin\",\"address\":\"5 boulevard Haussmann\",\"telephone\":\"0987654321\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  }
+]

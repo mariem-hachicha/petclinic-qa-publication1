@@ -1,0 +1,75 @@
+{
+  "requirement_id": "REQ-VIS-01",
+  "model": "gemini-3.5-flash",
+  "prompt": "pipeline/prompts/testcases_v1.md",
+  "generated_at": "2026-11-10T22:53:45+00:00",
+  "generated": 2,
+  "valid": 2,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-VIS-01-01",
+      "requirement_id": "REQ-VIS-01",
+      "title": "Ajout d'une visite valide par un vétérinaire",
+      "technique": "nominal",
+      "user": "vet",
+      "preconditions": [
+        "Authentifié en tant que 'vet' (ROLE_VET)",
+        "L'animal 1 du propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets/1/visits",
+        "query": {},
+        "body_json": "{\"date\":\"2024-01-15\",\"description\":\"Vaccination annuelle\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.date",
+            "operator": "equals",
+            "value": "2024-01-15"
+          },
+          {
+            "path": "$.description",
+            "operator": "equals",
+            "value": "Vaccination annuelle"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-VIS-01-02",
+      "requirement_id": "REQ-VIS-01",
+      "title": "Ajout d'une visite valide avec un autre motif de consultation",
+      "technique": "classe_equivalence",
+      "user": "vet",
+      "preconditions": [
+        "Authentifié en tant que 'vet' (ROLE_VET)",
+        "L'animal 1 du propriétaire 1 existe"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/owners/1/pets/1/visits",
+        "query": {},
+        "body_json": "{\"date\":\"2024-02-20\",\"description\":\"Contrôle de routine\"}"
+      },
+      "expected": {
+        "status": 201,
+        "body_checks": [
+          {
+            "path": "$.date",
+            "operator": "equals",
+            "value": "2024-02-20"
+          },
+          {
+            "path": "$.description",
+            "operator": "equals",
+            "value": "Contrôle de routine"
+          }
+        ]
+      }
+    }
+  ]
+}

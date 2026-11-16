@@ -1,0 +1,66 @@
+{
+  "requirement_id": "REQ-OWN-20",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:33:40+00:00",
+  "generated": 2,
+  "valid": 2,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-20-01",
+      "requirement_id": "REQ-OWN-20",
+      "title": "Un client propriétaire (george) accède à sa propre fiche",
+      "technique": "nominal",
+      "user": "george",
+      "preconditions": [
+        "Authentifié en tant que 'george' (ROLE_OWNER), lié au propriétaire 1",
+        "Le propriétaire 1 existe dans le système"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners/1",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "id",
+            "operator": "equals",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-OWN-20-02",
+      "requirement_id": "REQ-OWN-20",
+      "title": "Un autre client propriétaire (betty) accède à sa propre fiche",
+      "technique": "classe_equivalence",
+      "user": "betty",
+      "preconditions": [
+        "Authentifié en tant que 'betty' (ROLE_OWNER), liée au propriétaire 2",
+        "Le propriétaire 2 existe dans le système"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners/2",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "id",
+            "operator": "equals",
+            "value": 2
+          }
+        ]
+      }
+    }
+  ]
+}

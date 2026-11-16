@@ -1,0 +1,42 @@
+[
+  {
+    "id": "TC-OWN-13-01",
+    "requirement_id": "REQ-OWN-13",
+    "title": "Refus de création d'un propriétaire par un vétérinaire avec données complètes",
+    "technique": "securite",
+    "user": "vet",
+    "preconditions": [
+      "Authentifié en tant que 'vet' (ROLE_VET)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"James\",\"lastName\":\"Carter\",\"address\":\"110 W. Liberty St.\",\"city\":\"Madison\",\"telephone\":\"6085551023\"}"
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-13-02",
+    "requirement_id": "REQ-OWN-13",
+    "title": "Refus de création d'un propriétaire par un vétérinaire avec un autre jeu de données valides",
+    "technique": "securite",
+    "user": "vet",
+    "preconditions": [
+      "Authentifié en tant que 'vet' (ROLE_VET)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Helen\",\"lastName\":\"Leary\",\"address\":\"2387 S. Fairway Dr.\",\"city\":\"Sun Prairie\",\"telephone\":\"6085551749\"}"
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  }
+]

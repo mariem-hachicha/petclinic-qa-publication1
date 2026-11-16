@@ -1,0 +1,72 @@
+{
+  "requirement_id": "REQ-SEC-02",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T20:14:51+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-SEC-02-01",
+      "requirement_id": "REQ-SEC-02",
+      "title": "Demande de la liste des propriétaires avec un jeton mal formé 'Bearer abc'",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "En-tête 'Authorization: Bearer abc' fourni dans la requête"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-SEC-02-02",
+      "requirement_id": "REQ-SEC-02",
+      "title": "Demande de la liste des propriétaires avec un jeton sans préfixe Bearer",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "En-tête 'Authorization: malformed_token_string' fourni dans la requête"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-SEC-02-03",
+      "requirement_id": "REQ-SEC-02",
+      "title": "Demande de la liste des propriétaires avec une structure de jeton JWT tronquée",
+      "technique": "securite",
+      "user": null,
+      "preconditions": [
+        "En-tête 'Authorization: Bearer header.payload' (signature manquante) fourni dans la requête"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    }
+  ]
+}

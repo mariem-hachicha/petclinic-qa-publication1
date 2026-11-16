@@ -1,0 +1,65 @@
+{
+  "requirement_id": "REQ-USR-01",
+  "model": "gemini-3.5-flash",
+  "prompt": "pipeline/prompts/testcases_v1.md",
+  "generated_at": "2026-11-10T22:58:33+00:00",
+  "generated": 3,
+  "valid": 2,
+  "errors": [
+    "cas 3 : status 401 au lieu de 200 (contrat)"
+  ],
+  "testcases": [
+    {
+      "id": "TC-USR-01-01",
+      "requirement_id": "REQ-USR-01",
+      "title": "Création d'un utilisateur par un administrateur - cas nominal",
+      "technique": "nominal",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/users",
+        "query": {},
+        "body_json": "{\"username\":\"nouveau_user\",\"password\":\"motdepasse123\",\"enabled\":true}"
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "username",
+            "operator": "equals",
+            "value": "nouveau_user"
+          }
+        ]
+      }
+    },
+    {
+      "id": "TC-USR-01-02",
+      "requirement_id": "REQ-USR-01",
+      "title": "Création d'un utilisateur désactivé par un administrateur",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/api/users",
+        "query": {},
+        "body_json": "{\"username\":\"user_inactif\",\"password\":\"motdepasse123\",\"enabled\":false}"
+      },
+      "expected": {
+        "status": 200,
+        "body_checks": [
+          {
+            "path": "username",
+            "operator": "equals",
+            "value": "user_inactif"
+          }
+        ]
+      }
+    }
+  ]
+}

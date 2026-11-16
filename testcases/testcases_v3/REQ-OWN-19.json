@@ -1,0 +1,75 @@
+{
+  "requirement_id": "REQ-OWN-19",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:31:54+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-19-01",
+      "requirement_id": "REQ-OWN-19",
+      "title": "Lecture d'un propriétaire inexistant 999 par un vétérinaire",
+      "technique": "erreur",
+      "user": "vet",
+      "preconditions": [
+        "L'utilisateur est authentifié en tant que 'vet' (ROLE_VET)",
+        "Le propriétaire avec l'identifiant 999 n'existe pas"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners/999",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 404,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-OWN-19-02",
+      "requirement_id": "REQ-OWN-19",
+      "title": "Lecture d'un propriétaire inexistant avec un grand ID par un réceptionniste",
+      "technique": "classe_equivalence",
+      "user": "reception",
+      "preconditions": [
+        "L'utilisateur est authentifié en tant que 'reception' (ROLE_RECEPTIONIST)",
+        "Le propriétaire avec l'identifiant 9999 n'existe pas"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners/9999",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 404,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-OWN-19-03",
+      "requirement_id": "REQ-OWN-19",
+      "title": "Lecture d'un propriétaire inexistant par un administrateur",
+      "technique": "classe_equivalence",
+      "user": "admin",
+      "preconditions": [
+        "L'utilisateur est authentifié en tant que 'admin' (ROLE_ADMIN)",
+        "Le propriétaire avec l'identifiant 999 n'existe pas"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners/999",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 404,
+        "body_checks": []
+      }
+    }
+  ]
+}

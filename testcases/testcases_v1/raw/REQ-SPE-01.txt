@@ -1,0 +1,68 @@
+[
+  {
+    "id": "TC-SPE-01-01",
+    "requirement_id": "REQ-SPE-01",
+    "title": "Création nominale d'une spécialité par un administrateur",
+    "technique": "nominal",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/specialties",
+      "query": {},
+      "body_json": "{\"name\": \"radiology\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "$.name",
+          "operator": "equals",
+          "value": "radiology"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-SPE-01-02",
+    "requirement_id": "REQ-SPE-01",
+    "title": "Tentative de création de spécialité sans authentification",
+    "technique": "securite",
+    "user": null,
+    "preconditions": [
+      "Aucun jeton d'authentification fourni"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/specialties",
+      "query": {},
+      "body_json": "{\"name\": \"dentistry\"}"
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-SPE-01-03",
+    "requirement_id": "REQ-SPE-01",
+    "title": "Tentative de création de spécialité par un utilisateur non administrateur",
+    "technique": "securite",
+    "user": "george",
+    "preconditions": [
+      "Authentifié en tant que 'george' (ROLE_OWNER)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/specialties",
+      "query": {},
+      "body_json": "{\"name\": \"surgery\"}"
+    },
+    "expected": {
+      "status": 403,
+      "body_checks": []
+    }
+  }
+]

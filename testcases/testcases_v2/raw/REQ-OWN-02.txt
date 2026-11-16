@@ -1,0 +1,62 @@
+[
+  {
+    "id": "TC-OWN-02-01",
+    "requirement_id": "REQ-OWN-02",
+    "title": "Création d'un propriétaire en omettant complètement le champ firstName",
+    "technique": "erreur",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur est authentifié en tant que reception (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"lastName\":\"Dupont\",\"address\":\"15 rue de la Paix\",\"city\":\"Paris\",\"telephone\":\"0142685500\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-02-02",
+    "requirement_id": "REQ-OWN-02",
+    "title": "Création d'un propriétaire avec le champ firstName défini à null",
+    "technique": "erreur",
+    "user": "reception",
+    "preconditions": [
+      "L'utilisateur est authentifié en tant que reception (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":null,\"lastName\":\"Martin\",\"address\":\"8 avenue Foch\",\"city\":\"Lyon\",\"telephone\":\"0478123456\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-OWN-02-03",
+    "requirement_id": "REQ-OWN-02",
+    "title": "Création d'un propriétaire sans le champ firstName par un administrateur",
+    "technique": "erreur",
+    "user": "admin",
+    "preconditions": [
+      "L'utilisateur est authentifié en tant que admin (ROLE_ADMIN)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"lastName\":\"Bernard\",\"address\":\"30 boulevard Haussmann\",\"city\":\"Paris\",\"telephone\":\"0153291000\"}"
+    },
+    "expected": {
+      "status": 400,
+      "body_checks": []
+    }
+  }
+]

@@ -1,0 +1,72 @@
+{
+  "requirement_id": "REQ-SEC-04",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v2.md",
+  "generated_at": "2026-11-15T20:15:19+00:00",
+  "generated": 3,
+  "valid": 3,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-SEC-04-01",
+      "requirement_id": "REQ-SEC-04",
+      "title": "Accès à la liste des propriétaires avec un jeton expiré (admin)",
+      "technique": "securite",
+      "user": "admin",
+      "preconditions": [
+        "Jeton dont la date 'exp' est dépassée"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-SEC-04-02",
+      "requirement_id": "REQ-SEC-04",
+      "title": "Accès à la liste des propriétaires avec un jeton expiré (réception)",
+      "technique": "securite",
+      "user": "reception",
+      "preconditions": [
+        "Jeton dont la date 'exp' est dépassée"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-SEC-04-03",
+      "requirement_id": "REQ-SEC-04",
+      "title": "Accès à la liste des propriétaires avec un jeton expiré (vet)",
+      "technique": "securite",
+      "user": "vet",
+      "preconditions": [
+        "Jeton dont la date 'exp' est dépassée"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 401,
+        "body_checks": []
+      }
+    }
+  ]
+}

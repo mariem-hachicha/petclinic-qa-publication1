@@ -1,0 +1,89 @@
+[
+  {
+    "id": "TC-OWN-15-01",
+    "requirement_id": "REQ-OWN-15",
+    "title": "Filtrer la liste des propriétaires par le nom de famille 'Davis' avec un utilisateur vet",
+    "technique": "nominal",
+    "user": "vet",
+    "preconditions": [
+      "Authentifié en tant que 'vet' (ROLE_VET)",
+      "Des propriétaires avec le nom 'Davis' existent en base"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {
+        "lastName": "Davis"
+      },
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "[0].lastName",
+          "operator": "equals",
+          "value": "Davis"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-OWN-15-02",
+    "requirement_id": "REQ-OWN-15",
+    "title": "Filtrer la liste des propriétaires par le nom de famille 'Davis' avec un utilisateur admin",
+    "technique": "classe_equivalence",
+    "user": "admin",
+    "preconditions": [
+      "Authentifié en tant que 'admin' (ROLE_ADMIN)",
+      "Des propriétaires avec le nom 'Davis' existent en base"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {
+        "lastName": "Davis"
+      },
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "[0].lastName",
+          "operator": "equals",
+          "value": "Davis"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-OWN-15-03",
+    "requirement_id": "REQ-OWN-15",
+    "title": "Filtrer la liste des propriétaires par le nom de famille 'Davis' avec un utilisateur reception",
+    "technique": "classe_equivalence",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)",
+      "Des propriétaires avec le nom 'Davis' existent en base"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {
+        "lastName": "Davis"
+      },
+      "body_json": null
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "[0].lastName",
+          "operator": "equals",
+          "value": "Davis"
+        }
+      ]
+    }
+  }
+]

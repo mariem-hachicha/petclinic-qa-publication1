@@ -1,0 +1,54 @@
+{
+  "requirement_id": "REQ-OWN-17",
+  "model": "gemini-3.5-flash",
+  "model_version": "gemini-3.6-flash",
+  "prompt": "pipeline/prompts/testcases_v3.md",
+  "generated_at": "2026-11-16T14:30:47+00:00",
+  "generated": 2,
+  "valid": 2,
+  "errors": [],
+  "testcases": [
+    {
+      "id": "TC-OWN-17-01",
+      "requirement_id": "REQ-OWN-17",
+      "title": "Refus d'accès à la liste des propriétaires pour le rôle OWNER (george)",
+      "technique": "securite",
+      "user": "george",
+      "preconditions": [
+        "Authentifié en tant que 'george' (ROLE_OWNER)"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {},
+        "body_json": null
+      },
+      "expected": {
+        "status": 403,
+        "body_checks": []
+      }
+    },
+    {
+      "id": "TC-OWN-17-02",
+      "requirement_id": "REQ-OWN-17",
+      "title": "Refus d'accès à la recherche filtrée des propriétaires pour le rôle OWNER (betty)",
+      "technique": "securite",
+      "user": "betty",
+      "preconditions": [
+        "Authentifié en tant que 'betty' (ROLE_OWNER)"
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/owners",
+        "query": {
+          "lastName": "Davis"
+        },
+        "body_json": null
+      },
+      "expected": {
+        "status": 403,
+        "body_checks": []
+      }
+    }
+  ]
+}

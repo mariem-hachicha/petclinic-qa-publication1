@@ -1,0 +1,72 @@
+[
+  {
+    "id": "TC-AUTH-01-01",
+    "requirement_id": "REQ-AUTH-01",
+    "title": "Authentification réussie pour l'utilisateur administrateur admin",
+    "technique": "nominal",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise",
+      "L'utilisateur 'admin' / 'admin' existe (données de démo)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"admin\",\"password\":\"admin\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "accessToken",
+          "operator": "exists"
+        },
+        {
+          "path": "tokenType",
+          "operator": "equals",
+          "value": "Bearer"
+        },
+        {
+          "path": "expiresIn",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-AUTH-01-02",
+    "requirement_id": "REQ-AUTH-01",
+    "title": "Authentification réussie pour un utilisateur propriétaire george",
+    "technique": "classe_equivalence",
+    "user": null,
+    "preconditions": [
+      "Aucune authentification requise",
+      "L'utilisateur 'george' / 'george' existe"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "query": {},
+      "body_json": "{\"username\":\"george\",\"password\":\"george\"}"
+    },
+    "expected": {
+      "status": 200,
+      "body_checks": [
+        {
+          "path": "accessToken",
+          "operator": "exists"
+        },
+        {
+          "path": "tokenType",
+          "operator": "equals",
+          "value": "Bearer"
+        },
+        {
+          "path": "expiresIn",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

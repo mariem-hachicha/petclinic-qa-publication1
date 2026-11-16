@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC-OWN-01-01",
+    "requirement_id": "REQ-OWN-01",
+    "title": "Création nominale d'un propriétaire par un réceptionniste",
+    "technique": "nominal",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Jean\",\"lastName\":\"Dupont\",\"address\":\"10 rue des Fleurs\",\"city\":\"Paris\",\"telephone\":\"0123456789\"}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "$.id",
+          "operator": "exists"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC-OWN-01-02",
+    "requirement_id": "REQ-OWN-01",
+    "title": "Création d'un propriétaire avec une variante de données valides",
+    "technique": "classe_equivalence",
+    "user": "reception",
+    "preconditions": [
+      "Authentifié en tant que 'reception' (ROLE_RECEPTIONIST)"
+    ],
+    "request": {
+      "method": "POST",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": "{\"firstName\":\"Marie\",\"lastName\":\"Curie\",\"address\":\"1 place du Panthéon\",\"city\":\"Paris\",\"telephone\":\"0601020304\"}"
+    },
+    "expected": {
+      "status": 201,
+      "body_checks": [
+        {
+          "path": "$.id",
+          "operator": "exists"
+        }
+      ]
+    }
+  }
+]

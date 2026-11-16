@@ -1,0 +1,62 @@
+[
+  {
+    "id": "TC-SEC-04-01",
+    "requirement_id": "REQ-SEC-04",
+    "title": "Accès à la liste des propriétaires avec un jeton expiré (admin)",
+    "technique": "securite",
+    "user": "admin",
+    "preconditions": [
+      "Jeton dont la date 'exp' est dépassée"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-SEC-04-02",
+    "requirement_id": "REQ-SEC-04",
+    "title": "Accès à la liste des propriétaires avec un jeton expiré (réception)",
+    "technique": "securite",
+    "user": "reception",
+    "preconditions": [
+      "Jeton dont la date 'exp' est dépassée"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  },
+  {
+    "id": "TC-SEC-04-03",
+    "requirement_id": "REQ-SEC-04",
+    "title": "Accès à la liste des propriétaires avec un jeton expiré (vet)",
+    "technique": "securite",
+    "user": "vet",
+    "preconditions": [
+      "Jeton dont la date 'exp' est dépassée"
+    ],
+    "request": {
+      "method": "GET",
+      "path": "/api/owners",
+      "query": {},
+      "body_json": null
+    },
+    "expected": {
+      "status": 401,
+      "body_checks": []
+    }
+  }
+]
