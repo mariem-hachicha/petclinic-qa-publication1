@@ -1,0 +1,40 @@
+# Kiwi TCMS - d'apres docker-compose.yml officiel (github.com/kiwitcms/Kiwi)
+# Modification : service "proxy" retire (reserve aux tests du projet Kiwi, fichiers absents).
+services:
+    db:
+        container_name: kiwi_db
+        image: mariadb:latest
+        command:
+            --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        volumes:
+            - db_data:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: kiwi-1s-aw3s0m3
+            MYSQL_DATABASE: kiwi
+            MYSQL_USER: kiwi
+            MYSQL_PASSWORD: kiwi
+
+    web:
+        container_name: kiwi_web
+        depends_on:
+            - db
+        restart: always
+        image: pub.kiwitcms.eu/kiwitcms/kiwitcms:latest
+        ports:
+            - 8443:8443
+        volumes:
+            - uploads:/Kiwi/uploads:Z
+        environment:
+            KIWI_DB_HOST: db
+            KIWI_DB_PORT: 3306
+            KIWI_DB_NAME: kiwi
+            KIWI_DB_USER: kiwi
+            KIWI_DB_PASSWORD: kiwi
+            KIWI_SECRET_KEY: ${KIWI_SECRET_KEY:?Creer kiwi/.env a partir de kiwi/.env.example}
+        cap_drop:
+          - ALL
+
+volumes:
+    db_data:
+    uploads:
